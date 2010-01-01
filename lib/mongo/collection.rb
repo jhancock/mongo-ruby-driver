@@ -19,9 +19,9 @@ module Mongo
   # A named collection of records in a database.
   class Collection
 
-    attr_reader :db, :name, :pk_factory, :hint
+    attr_reader :db, :name, :pk_factory, :hint, :doc_factory
 
-    def initialize(db, name, pk_factory=nil)
+    def initialize(db, name, pk_factory=nil, doc_factory = nil)
       case name
       when Symbol, String
       else
@@ -40,7 +40,7 @@ module Mongo
         raise InvalidName, "collection names must not start or end with '.'"
       end
 
-      @db, @name  = db, name
+      @db, @name, @doc_factory  = db, name, doc_factory
       @connection = @db.connection
       @pk_factory = pk_factory || ObjectID
       @hint = nil

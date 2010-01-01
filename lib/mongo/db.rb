@@ -188,8 +188,8 @@ module Mongo
     # Return a collection. If +strict+ is false, will return existing or
     # new collection. If +strict+ is true, will raise an error if
     # collection +name+ does not already exists.
-    def collection(name)
-      return Collection.new(self, name, @pk_factory) if !strict? || collection_names.include?(name)
+    def collection(name, doc_factory = nil)
+      return Collection.new(self, name, @pk_factory, doc_factory) if !strict? || collection_names.include?(name)
       raise "Collection #{name} doesn't exist. Currently in strict mode."
     end
     alias_method :[], :collection

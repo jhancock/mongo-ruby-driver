@@ -68,6 +68,7 @@ module Mongo
         raise OperationFailure, err
       end
 
+      doc = @collection.doc_factory.call(doc) if doc && @collection.doc_factory
       doc
     end
 
